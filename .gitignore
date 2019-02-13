@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/CinemaAPI/Domain/obj
+/CinemaAPI/Domain/bin/Debug/netcoreapp2.1
+/CinemaAPI/CinemaAPI/bin/Debug/netcoreapp2.1
+/CinemaAPI/.vs/CinemaAPI/v15
+/CinemaAPI/CinemaAPI/obj
