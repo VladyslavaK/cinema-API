@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace CinemaAPI.Controllers
 {
@@ -11,6 +12,14 @@ namespace CinemaAPI.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        private MovieService _movieService;
+
+
+        public MoviesController()
+        {
+            _movieService = new MovieService();
+        }
+
         // GET api/movies
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> Get()

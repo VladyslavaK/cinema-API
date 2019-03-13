@@ -7,3 +7,5 @@
 /CinemaAPI/CinemaAPI/bin/Debug/netcoreapp2.1
 /CinemaAPI/.vs/CinemaAPI/v15
 /CinemaAPI/CinemaAPI/obj
+/CinemaAPI/*/bin
+/CinemaAPI/*/obj
