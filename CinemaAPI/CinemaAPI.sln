@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaAPI", "CinemaAPI\Cine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{34D8DE15-CB9A-4533-936A-24AE817A8D7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{AE79A4C4-2AF3-45BD-A9D6-408D2D8DEDBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{AE79A4C4-2AF3-45BD-A9D6-408D2D8DEDBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{194DA842-80BF-41D5-BC28-53207D7434B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{194DA842-80BF-41D5-BC28-53207D7434B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3FC10CAA-A257-4E7D-9699-235020D1317F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{3FC10CAA-A257-4E7D-9699-235020D1317F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{B63CD9D5-D18B-41BE-B20A-33591814A181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3FC10CAA-A257-4E7D-9699-235020D1317F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FC10CAA-A257-4E7D-9699-235020D1317F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FC10CAA-A257-4E7D-9699-235020D1317F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B63CD9D5-D18B-41BE-B20A-33591814A181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B63CD9D5-D18B-41BE-B20A-33591814A181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B63CD9D5-D18B-41BE-B20A-33591814A181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B63CD9D5-D18B-41BE-B20A-33591814A181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

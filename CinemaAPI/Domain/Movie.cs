@@ -5,7 +5,7 @@ namespace Domain
 {
     public class Movie
     {
-        public ID ID { get; set; }
+        public ID MovieID { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
         public string Director { get; set; }

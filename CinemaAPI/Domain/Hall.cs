@@ -7,7 +7,7 @@ namespace Domain
 {
     public class Hall
     {
-        public ID ID { get; set; }
+        public ID HallID { get; set; }
         public string Name { get; set; }
         public int Capacity { get; set; }
     }
