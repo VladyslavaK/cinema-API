@@ -33,7 +33,7 @@ namespace CinemaAPI
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Inquiry API", Version = "v1" });
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Cinema API", Version = "v1" });
             });
         }
 
@@ -55,7 +55,7 @@ namespace CinemaAPI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Inquiry API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cinema API V1");
             });
         }
     }

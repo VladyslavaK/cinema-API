@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Common;
+using Common.Interfaces;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CinemaAPI.Controllers
@@ -11,36 +11,47 @@ namespace CinemaAPI.Controllers
     [ApiController]
     public class CinemaController : ControllerBase
     {
+        private ICRUD<Cinema> _cinemaService;
+
+        public CinemaController(ICRUD<Cinema> cinemaService)
+        {
+            _cinemaService = cinemaService;
+        }
+
         // GET: api/Cinema
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Cinema> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _cinemaService.Get();
         }
 
         // GET: api/Cinema/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public async Task<ActionResult<Cinema>> Get(int id)
         {
-            return "value";
+            return await _cinemaService.GetAsync(new ID(id));
         }
 
         // POST: api/Cinema
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ID> Post([FromBody] Cinema cinema)
         {
+           return await _cinemaService.InsertAsync(cinema);
         }
 
         // PUT: api/Cinema/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task Put(int id, [FromBody] Cinema cinema)
         {
+            cinema.CinemaID = new ID(id);
+            await _cinemaService.UpdateAsync(cinema);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Cinema/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _cinemaService.DeleteAsync(new ID(id));
         }
     }
 }

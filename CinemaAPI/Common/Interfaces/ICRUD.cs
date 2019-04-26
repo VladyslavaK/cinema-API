@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Common.Interfaces
 {
     public interface ICRUD<T> where T: class
     {
-        T Get(ID id);
+        Task<T> GetAsync(ID id);
         List<T> Get();
-        ID Insert(T item);
-        void Update(T item);
-        void Delete(ID id);            
+        Task<ID> InsertAsync(T item);
+        Task UpdateAsync(T item);
+        Task DeleteAsync(ID id);            
 
     }
 }

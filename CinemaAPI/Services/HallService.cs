@@ -2,37 +2,50 @@
 using Common;
 using Common.Interfaces;
 using Domain;
+using Infrastructure.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Services
 {
     public class HallService : ICRUD<Hall>
     {
-        public void Delete(ID id)
+        private CinemaContext _context;
+        public HallService(CinemaContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Hall Get(ID id)
+        public async Task DeleteAsync(ID id)
         {
-            throw new NotImplementedException();
+            _context.Halls.Remove(new Hall { HallID = id });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Hall> GetAsync(ID id)
+        {
+            return await _context.Halls.FindAsync(new Hall { HallID = id });
         }
 
         public List<Hall> Get()
         {
-            throw new NotImplementedException();
+            return _context.Halls.ToList();
         }
 
-        public ID Insert(Hall item)
+        public async Task<ID> InsertAsync(Hall item)
         {
-            throw new NotImplementedException();
+            var hall = await _context.Halls.AddAsync(item);
+            await _context.SaveChangesAsync();
+            return hall.Entity.HallID;
         }
 
-        public void Update(Hall item)
+        public async Task UpdateAsync(Hall item)
         {
-            throw new NotImplementedException();
+            var id = _context.Halls.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }

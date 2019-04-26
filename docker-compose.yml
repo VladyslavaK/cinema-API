@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  api:
+    build:     
+      context: CinemaAPI
+      dockerfile: Dockerfile
+    environment:
+     - ASPNETCORE_ENVIRONMENT=Development
+     - CONN_STRING=Server=db;Database=Cinema;User=sa;Password=Aruba2019;
+    volumes: 
+     - /CinemaAPI/.:/app
+    depends_on:
+      - db
+    ports:
+      - 1001:1001
+      - 1002:1002
+
+  db:
+    build:
+      context: ./
+      dockerfile: Dockerfile-db
+    ports:
+      - "1435:1433"
+    environment:
+      SA_PASSWORD: "Aruba2019"
+    healthcheck:
+      test: sqlcmd -S localhost -U SA -P 'Aruba2019' -Q 'select 1'
+      interval: 1m30s
+      timeout: 10s
+      retries: 3  

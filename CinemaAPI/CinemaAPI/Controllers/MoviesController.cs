@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common;
+using Common.Interfaces;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -12,44 +14,47 @@ namespace CinemaAPI.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private MovieService _movieService;
+        private ICRUD<Movie> _movieService;
 
-
-        public MoviesController()
+        public MoviesController(ICRUD<Movie> movieService)
         {
-            _movieService = new MovieService();
+            _movieService = movieService;
         }
 
         // GET api/movies
         [HttpGet]
         public ActionResult<IEnumerable<Movie>> Get()
         {
-            return new Movie[10]; 
+            return _movieService.Get(); 
         }
 
         // GET api/movies/5
         [HttpGet("{id}")]
-        public ActionResult<Movie> Get(int id)
+        public async Task<ActionResult<Movie>> Get(int id)
         {
-            return new Movie();
+            return await _movieService.GetAsync(new ID(id));
         }
 
         // POST api/movies
         [HttpPost]
-        public void Post([FromBody] Movie movie)
+        public async Task<ID> Post([FromBody] Movie movie)
         {
+            return await _movieService.InsertAsync(movie);
         }
 
         // PUT api/movies/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Movie movie)
+        public async Task Put(int id, [FromBody] Movie movie)
         {
+            movie.MovieID = new ID(id);
+            await _movieService.UpdateAsync(movie);
         }
 
         // DELETE api/movies/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await _movieService.DeleteAsync(new ID(id));
         }
     }
 }

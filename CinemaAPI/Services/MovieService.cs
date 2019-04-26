@@ -1,35 +1,49 @@
 ﻿using Common;
 using Common.Interfaces;
 using Domain;
+using Infrastructure.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services
 {
     public class MovieService : ICRUD<Movie>
     {
-        public Movie Get(ID id)
+        private CinemaContext _context;
+        public MovieService(CinemaContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task DeleteAsync(ID id)
+        {
+            _context.Movies.Remove(new Movie { MovieID = id });
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Movie> GetAsync(ID id)
+        {
+            return await _context.Movies.FindAsync(new Movie { MovieID = id });
         }
 
         public List<Movie> Get()
         {
-            throw new NotImplementedException();
+            return _context.Movies.ToList();
         }
 
-        public ID Insert(Movie item)
+        public async Task<ID> InsertAsync(Movie item)
         {
-            throw new NotImplementedException();
+            var movie = await _context.Movies.AddAsync(item);
+            await _context.SaveChangesAsync();
+            return movie.Entity.MovieID;
         }
 
-        public void Update(Movie item)
+        public async Task UpdateAsync(Movie item)
         {
-            throw new NotImplementedException();
-        }
-        public void Delete(ID id)
-        {
-            throw new NotImplementedException();
+            var id = _context.Movies.Update(item);
+            await _context.SaveChangesAsync();
         }
     }
 }
