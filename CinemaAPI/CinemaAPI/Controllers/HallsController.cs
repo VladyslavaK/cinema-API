@@ -23,13 +23,13 @@ namespace CinemaAPI.Controllers
 
         // GET: api/Halls
         [HttpGet]
-        public IEnumerable<Hall> Get()
+        public async Task<IEnumerable<Hall>> Get()
         {
-            return _hallsService.Get();
+            return await _hallsService.GetAsync();
         }
 
         // GET: api/Halls/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Hall>> Get(int id)
         {
             return await _hallsService.GetAsync(new ID(id));

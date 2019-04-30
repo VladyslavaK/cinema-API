@@ -3,6 +3,7 @@ using Common;
 using Common.Interfaces;
 using Domain;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ namespace Services
             return await _context.Halls.FindAsync(new Hall { HallID = id });
         }
 
-        public List<Hall> Get()
+        public async Task<List<Hall>> GetAsync()
         {
-            return _context.Halls.ToList();
+            return await _context.Halls.ToListAsync();
         }
 
         public async Task<ID> InsertAsync(Hall item)

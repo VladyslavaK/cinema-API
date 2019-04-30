@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace Infrastructure
         {
             services.AddDbContext<CinemaContext>(c =>
             {
-                c.UseSqlServer(connString);
+                c.UseSqlServer(connString)
+                .ConfigureWarnings(warnings => warnings.Throw(CoreEventId.IncludeIgnoredWarning)); 
             });
         }
 
@@ -30,7 +32,7 @@ namespace Infrastructure
                 if (!context.Cinemas.Any())
                 {
                     context.Cinemas.AddRange(
-                        GetPredefinedCinemas());
+                        GetPredefinedCinemas());                    
                     await context.SaveChangesAsync();
                 }
             }
@@ -40,7 +42,27 @@ namespace Infrastructure
         {
             return new List<Cinema>()
             {
-                new Cinema() { CinemaID = new Common.ID(1), Name = "Grande Hall", Address="NY", OpenYear = 2010 }                
+                new Cinema() { CinemaID = new Common.ID(1), Name = "Multiplex", Address="NY", OpenYear = 2010,
+                    Halls = GetPredefinedHalls().ToList(),
+                    Movies = GetPredefinedMovies().ToList() }                
+            };
+        }
+
+        static IEnumerable<Hall> GetPredefinedHalls()
+        {
+            return new List<Hall>()
+            {
+                new Hall() { HallID = new Common.ID(1), Name = "Yellow", Capacity=120 },
+                new Hall() { HallID = new Common.ID(2), Name = "Green", Capacity=80 },
+                new Hall() { HallID = new Common.ID(3), Name = "Blue", Capacity=150 },
+            };
+        }
+
+        static IEnumerable<Movie> GetPredefinedMovies()
+        {
+            return new List<Movie>()
+            {
+                new Movie() { MovieID = new Common.ID(1), Name = "Aquaman", Director="Van" , Year=2019, AtTheBoxOffice=new Common.DateRange("01/12/2018", "01/01/2019") }
             };
         }
     }

@@ -8,7 +8,7 @@ namespace Common.Interfaces
     public interface ICRUD<T> where T: class
     {
         Task<T> GetAsync(ID id);
-        List<T> Get();
+        Task<List<T>> GetAsync();
         Task<ID> InsertAsync(T item);
         Task UpdateAsync(T item);
         Task DeleteAsync(ID id);            

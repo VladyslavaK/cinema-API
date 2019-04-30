@@ -8,7 +8,7 @@ namespace Common
 
         public ID(int id)
         {
-            Value = Validated(id) ? id : throw new Exception($"Invalid ID value - {id}");
+            Value = Validated(id) ? id : throw new ArgumentException($"Invalid ID value - {id}");
         }
 
         private bool Validated(int value)

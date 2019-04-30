@@ -21,7 +21,7 @@ namespace Infrastructure.Context
                 .HasMany<Hall>(c => c.Halls);
 
             modelBuilder.Entity<Cinema>()
-                .HasMany<Movie>(c => c.Movies);
+                .HasMany<Movie>(c => c.Movies);   
 
             var idConverter = new ValueConverter<ID, Int32>(
                                 v => v.Value,
@@ -41,6 +41,8 @@ namespace Infrastructure.Context
                 .Property(p => p.MovieID)
                 .HasConversion(idConverter)
                 .IsRequired();
+
+            modelBuilder.Entity<Movie>().OwnsOne(m => m.AtTheBoxOffice);
         }
 
         public DbSet<Cinema> Cinemas { get; set; }

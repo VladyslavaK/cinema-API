@@ -2,6 +2,7 @@
 using Common.Interfaces;
 using Domain;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,9 @@ namespace Services
            return await _context.Cinemas.FindAsync( new Cinema { CinemaID = id });
         }
 
-        public List<Cinema> Get()
+        public async Task<List<Cinema>> GetAsync()
         {
-            return  _context.Cinemas.ToList();
+            return await _context.Cinemas.ToListAsync();
         }
 
         public async Task<ID> InsertAsync(Cinema item)
