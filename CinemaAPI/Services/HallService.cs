@@ -1,6 +1,7 @@
 ﻿
 using Common;
 using Common.Interfaces;
+using Common.Models;
 using Domain;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -22,13 +23,17 @@ namespace Services
 
         public async Task DeleteAsync(ID id)
         {
-            _context.Halls.Remove(new Hall { HallID = id });
-            await _context.SaveChangesAsync();
+            var hall = await GetAsync(id);
+            if (hall != null)
+            {
+                _context.Halls.Remove(hall);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<Hall> GetAsync(ID id)
         {
-            return await _context.Halls.FindAsync(new Hall { HallID = id });
+            return await _context.Halls.SingleOrDefaultAsync(h => h.HallID.Value == id.Value); 
         }
 
         public async Task<List<Hall>> GetAsync()
@@ -38,6 +43,8 @@ namespace Services
 
         public async Task<ID> InsertAsync(Hall item)
         {
+            var latest = await _context.Halls.OrderByDescending(c => c.HallID.Value).FirstOrDefaultAsync();
+            item.HallID = new ID(latest.HallID.Value + 1);
             var hall = await _context.Halls.AddAsync(item);
             await _context.SaveChangesAsync();
             return hall.Entity.HallID;

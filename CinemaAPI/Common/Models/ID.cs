@@ -1,19 +1,24 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
-namespace Common
+namespace Common.Models
 {
-    public class ID
+    public struct ID
     {
         public int Value { get; private set; }
 
         public ID(int id)
         {
-            Value = Validated(id) ? id : throw new ArgumentException($"Invalid ID value - {id}");
+            Value = id > 0 ? id : throw new ArgumentException($"Invalid ID value - {id}");
+        }
+        public static bool operator ==(ID a, ID b)
+        {
+            return a.Equals(b);
         }
 
-        private bool Validated(int value)
+        public static bool operator !=(ID a, ID b)
         {
-            return value > 0;
+            return !(a == b);
         }
     }
 }

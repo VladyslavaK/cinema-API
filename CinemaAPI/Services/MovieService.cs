@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Interfaces;
+using Common.Models;
 using Domain;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +21,17 @@ namespace Services
 
         public async Task DeleteAsync(ID id)
         {
-            _context.Movies.Remove(new Movie { MovieID = id });
-            await _context.SaveChangesAsync();
+            var movie = await GetAsync(id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<Movie> GetAsync(ID id)
         {
-            return await _context.Movies.FindAsync(new Movie { MovieID = id });
+            return await _context.Movies.SingleOrDefaultAsync(m => m.MovieID.Value == id.Value);
         }
 
         public async Task<List<Movie>> GetAsync()
@@ -36,6 +41,8 @@ namespace Services
 
         public async Task<ID> InsertAsync(Movie item)
         {
+            var latest = await _context.Movies.OrderByDescending(c => c.MovieID.Value).FirstOrDefaultAsync();
+            item.MovieID = new ID(latest.MovieID.Value + 1);
             var movie = await _context.Movies.AddAsync(item);
             await _context.SaveChangesAsync();
             return movie.Entity.MovieID;

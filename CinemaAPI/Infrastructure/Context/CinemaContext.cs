@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Models;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -20,9 +21,6 @@ namespace Infrastructure.Context
             modelBuilder.Entity<Cinema>()
                 .HasMany<Hall>(c => c.Halls);
 
-            modelBuilder.Entity<Cinema>()
-                .HasMany<Movie>(c => c.Movies);   
-
             var idConverter = new ValueConverter<ID, Int32>(
                                 v => v.Value,
                                 v => new ID(v));
@@ -42,7 +40,8 @@ namespace Infrastructure.Context
                 .HasConversion(idConverter)
                 .IsRequired();
 
-            modelBuilder.Entity<Movie>().OwnsOne(m => m.AtTheBoxOffice);
+            modelBuilder.Entity<Movie>().OwnsOne(m => m.AtTheBoxOffice).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Cinema>().OwnsOne(c => c.CinemaAddress).OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<Cinema> Cinemas { get; set; }

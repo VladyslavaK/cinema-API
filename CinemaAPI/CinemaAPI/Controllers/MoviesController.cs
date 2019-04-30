@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Common;
 using Common.Interfaces;
+using Common.Models;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -32,7 +33,10 @@ namespace CinemaAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> Get(int id)
         {
-            return await _movieService.GetAsync(new ID(id));
+            var item = await _movieService.GetAsync(new ID(id));
+            if (item != null)
+                return item;
+            return NotFound();
         }
 
         // POST api/movies

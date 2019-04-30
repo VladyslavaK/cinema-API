@@ -1,4 +1,6 @@
 ﻿using Common;
+using Common.Models;
+using Newtonsoft.Json;
 using System;
 
 namespace Domain
