@@ -26,6 +26,16 @@ namespace CinemaAPI.Controllers
             return await _cinemaService.GetAsync();
         }
 
+
+    //   // GET: api/Cinema
+    //     [HttpGet("Test/{input}")]
+    //     public ActionResult GetTest(string input)
+    //     {
+    //         return Ok($"My test endpoint - {input}");
+    //     }
+
+
+
         // GET: api/Cinema/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cinema>> Get(int id)

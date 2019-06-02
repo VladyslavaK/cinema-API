@@ -9,7 +9,7 @@ services:
      - ASPNETCORE_ENVIRONMENT=Development
      - CONN_STRING=Server=db;Database=Cinema;User=sa;Password=Aruba2019;
     volumes: 
-     - /CinemaAPI/.:/app
+     - './CinemaAPI:/app'
     depends_on:
       - db
     ports:
